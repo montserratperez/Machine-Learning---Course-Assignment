@@ -67,14 +67,14 @@ img {
 </div>
 
 
-<div id="executive-summary" class="section level2">
-<h2>Executive Summary</h2>
+<div id="executive-summary" class="section level1">
+<h1>Executive Summary</h1>
 <p>A group of self-movement quantification enthusiasts were asked to perform barbell lifts correctly and incorrectly in 5 different ways. The goal of this project is to find an algorithm that correclty predicts the manner in which they did the exercise. There are five possible outcomes: Class A corresponds to the specified execution of the exercise, while the other 4 classes correspond to common mistakes.</p>
-<p>I first tried an rpart tree but the accuracy of prediction value was only 56%. I then tried a random forest model and achieved 99.8% out of sample accuracy.The most important variables are num_window, roll_belt and pitch_belt.</p>
-<p>I finally applied the random forest model to the 20 test cases and achieved 100% accuracy.</p>
+<p>We first tried an rpart tree but the accuracy of prediction value was only 56%. We then tried a random forest model and achieved 99.8% out of sample accuracy.The most important variables are num_window, roll_belt and pitch_belt.</p>
+<p>We finally applied the random forest model to the 20 test cases and achieved 100% accuracy.</p>
 </div>
-<div id="exploratory-analysis-and-data-preprocessing" class="section level2">
-<h2>Exploratory Analysis and Data Preprocessing</h2>
+<div id="exploratory-analysis-and-data-preprocessing" class="section level1">
+<h1>Exploratory Analysis and Data Preprocessing</h1>
 <p>We first load the data and libraries</p>
 <pre class="r"><code>library(caret)</code></pre>
 <pre><code>## Warning: package 'caret' was built under R version 3.2.2</code></pre>
@@ -109,16 +109,16 @@ training3 &lt;- training2[,-nzv]
 test2 &lt;- test1[,-nzv]</code></pre>
 <p>We have ended up with 54 variables (out of 160)</p>
 </div>
-<div id="cross-validation" class="section level2">
-<h2>Cross Validation</h2>
+<div id="cross-validation" class="section level1">
+<h1>Cross Validation</h1>
 <p>We now partition the data by the “classe”&quot; variable into training and test sets so that we can test for accuracy the model derived from the training set. We will use 75% of the data for the training set.</p>
 <pre class="r"><code>set.seed(1001)
 inTrain &lt;- createDataPartition(y= training3$classe, p=0.75, list=FALSE)
 training4 &lt;-training3[inTrain,]
 test3 &lt;-training3[-inTrain, ]</code></pre>
 </div>
-<div id="model-building" class="section level2">
-<h2>Model building</h2>
+<div id="model-building" class="section level1">
+<h1>Model building</h1>
 <p>Given the large number of variables a tree based model would appear appropriate. Let’s start with rpart</p>
 <pre class="r"><code>tree &lt;-train(classe ~., data=training4, method =&quot;rpart&quot;)
 rattle::fancyRpartPlot(tree$finalModel)</code></pre>
@@ -221,8 +221,8 @@ Imp</code></pre>
 ## roll_arm               5.458</code></pre>
 <p>The random forest produces much more satisfactory results with an error rate of 0.015% (99.85% accuracy). The three most important variables are in order of descending importance: num_window, roll_belt and pitch_belt</p>
 </div>
-<div id="apply-model-to-20-test-cases" class="section level2">
-<h2>Apply model to 20 test cases:</h2>
+<div id="apply-model-to-20-test-cases" class="section level1">
+<h1>Apply model to 20 test cases:</h1>
 <pre class="r"><code>pred2 &lt;-predict(tree1, test2)</code></pre>
 <pre><code>## Loading required package: randomForest</code></pre>
 <pre><code>## Warning: package 'randomForest' was built under R version 3.2.2</code></pre>
